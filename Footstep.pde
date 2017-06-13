@@ -14,7 +14,7 @@ class Footstep {
     
      //other place not the crosswalks: minus points
      if ((player.position.z < 5) || (player.position.z<65 && player.position.z > 55 && player.position.x<205) || (player.position.z>65 && player.position.z<75 && player.position.x<175) || (player.position.z>75 && player.position.z<85 && player.position.x<145) || (player.position.z>85 && player.position.z<95 && player.position.x<115) || (player.position.z>95 && player.position.x<85)) {
-      scoreNum-=0.01;
+      scoreNum-=0.003;
       status="-1점 잔디를 밟지 말아주세요";
     }
 
