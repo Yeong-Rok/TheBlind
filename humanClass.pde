@@ -379,7 +379,7 @@ class taillessMonkey {
   void move() {
     float d1 = player.position.dist(position);
     distance = d1;
-    if (distance<30) {
+    if (distance<15) {
       if (player.position.z - position.z > 0.5) TT.setPan(-1.0);
       else if (player.position.z - position.z < -0.5) TT.setPan(1.0);
       else TT.setPan(0);

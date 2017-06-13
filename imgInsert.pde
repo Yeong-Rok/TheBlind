@@ -152,7 +152,7 @@ class imgInsert {
     building.moveTo(buildingPos.x, buildingPos.y, buildingPos.z);
     building.rotateTo(0, radians(30), 0);
     building.draw();
-    
+
     //sky
     skyPos.x = 150;
     skyPos.y = -250;
@@ -328,19 +328,11 @@ class imgInsert {
       brailleGo[i].moveTo(brailleGoPos.x, brailleGoPos.y, brailleGoPos.z);
       brailleGo[i].draw();
 
-      if ((abs(player.position.x - brailleGoPos.x)<1) && (abs(player.position.z - brailleGoPos.z)<1))
+      if ((abs(player.position.x - brailleStopPos.x)<1) && (abs(player.position.z - brailleStopPos.z)<1))
       {
-        camera();
-        hint(DISABLE_DEPTH_TEST);
-        textMode(MODEL);
-        textAlign(CENTER, CENTER);
-        fill(0);
-        rectMode(CENTER);
-        rect(width/2, height/2 +5, 60, 50);
         fill(255);
-        strokeWeight(2);
-        text("GO", width/2, height/2);
-        hint(ENABLE_DEPTH_TEST);
+        textSize(100);
+        showText("STOP", width/2, height/2);
       }
     }
 
@@ -364,17 +356,9 @@ class imgInsert {
 
       if ((abs(player.position.x - brailleStopPos.x)<1) && (abs(player.position.z - brailleStopPos.z)<1))
       {
-        camera();
-        hint(DISABLE_DEPTH_TEST);
-        textMode(MODEL);
-        textAlign(CENTER, CENTER);
-        fill(0);
-        rectMode(CENTER);
-        rect(width/2, height/2 +5, 100, 50);
         fill(255);
-        strokeWeight(2);
-        text("STOP", width/2, height/2);
-        hint(ENABLE_DEPTH_TEST);
+        textSize(100);
+        showText("STOP", width/2, height/2);
       }
     }
   }
