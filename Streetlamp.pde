@@ -21,11 +21,10 @@ class Streetlamp {
     middle.setTexture("silver.jpg");
     middle.drawMode(S3D.TEXTURE);
     top = new Ellipsoid(parent, 5, 5);   
-    top.setRadius(1.7,0.8,1.7);
+    top.setRadius(1.7, 0.8, 1.7);
     top.setTexture("light.jpg");
     top.drawMode(S3D.TEXTURE);
     rad = _rad;
-    
   }
 
   void update() {
@@ -78,25 +77,20 @@ class Streetlamp {
           player.position.z = boxBack + player.dimensions.x/2;
         }
       }
-    }
-    
-    if(crashed == true) {
       if (crashed==true) {
-      background(0);
-      lampcrash.play();
-      if ( abs(lampcrash.position() - lampcrash.length())<5 )
-      {
-        lampcrash.rewind();
+        background(0);
+        lampcrash.play();
+        if ( abs(lampcrash.position() - lampcrash.length())<5 )
+        {
+          lampcrash.rewind();
+        }
+        if (frameCount%20 == 0) {
+          yellow();      
+          scoreNum-=5;
+        }
+        status= "가로등에 부딪혔습니다!";
+        crashed=false;
       }
-      player.position.x -=1.5;
-      player.position.z -=1.5;
-
-      crashed=false;
-    }
-      
-       yellow();
-       scoreNum-=10;
-      status= "You are hit by a streetlamp!";
     }
   }
 
@@ -109,9 +103,7 @@ class Streetlamp {
     middle.rotateTo(radians(90), radians(rad), 0);
     middle.draw();
     top.moveTo(position.x, position.y-12.4, position.z+5.5);
-     top.rotateTo(0, radians(rad), 0);
+    top.rotateTo(0, radians(rad), 0);
     top.draw();
   }
-  
-  
 }

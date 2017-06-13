@@ -77,20 +77,22 @@ class Bollard {
       }
     }
 
-    if (crashed==true) {
+   if (crashed==true) {
       background(0);
       bollardhit.play();
       if ( abs(bollardhit.position() - bollardhit.length())<5 )
       {
         bollardhit.rewind();
       }
-      player.position.x -=1.5;
-      player.position.z -=1.5;
-      scoreNum-=10;
-      yellow();
-      crashed=false;
-      status= "You are hit by a bollard!";
+      if (frameCount%20 == 0) {
+        yellow();
+        
+      scoreNum-=5;
+      }
+      status= "볼라드에 부딪혔습니다!";
       println(scoreNum);
+      crashed=false;
+      
     }
   }
 

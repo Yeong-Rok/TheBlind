@@ -367,12 +367,12 @@ class taillessMonkey {
     }
     if (crashed==true) {
       background(0);
-      player.position.x -=1.5;
-      player.position.z -=1.5;
-      scoreNum-=10;
-       yellow();
-      crashed=false;
-       status= "You are crashed with people!";
+      if (frameCount%20 == 0) {
+              
+      scoreNum-=5;
+      }
+       status= "사람에 부딪혔습니다!";
+        crashed=false;
     }
   }
 

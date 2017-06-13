@@ -138,7 +138,7 @@ void setup() {
   //step sound
   steps = new Footstep();
 
-  font =   createFont ( "휴먼견출고딕", 32);
+  font =   loadFont ("Mgonsm-32.vlw");
   textFont (font);
 
   // *********************
@@ -272,6 +272,7 @@ void draw() {
     textFont(font);
     black();
     score();
+    statusValue();
     showTextInHUD(status);
     break;
   case 3:  
@@ -326,25 +327,12 @@ void showTextInHUD(String str1) {
   noLights();
   textMode(MODEL);
   if (str1!=null)
-
-    text(str1, width*2/3, height*2/3, width*1/4-40, height/3);
-
-  hint(ENABLE_DEPTH_TEST);
-
-  if (player.position.y == 15) {
+    text(str1, width*3/5, height/7+80, width*1/4-40, height/3);
+  hint(ENABLE_DEPTH_TEST); 
     status =null;
-  }
-} // func 
+  
+}
 
-//사각형
-//void red() {
-
-//  camera();
-//  hint(DISABLE_DEPTH_TEST);
-//  fill(255, 0, 0);
-//  rect(0, 0, width, height);
-//  //hint(ENABLE_DEPTH_TEST);
-//} // func 
 
 void yellow() {
   background(#FEFF0D);
@@ -355,47 +343,89 @@ void yellow() {
   hint(ENABLE_DEPTH_TEST);
 } 
 
+//scorebar
 void score() {
 
   camera();
   hint(DISABLE_DEPTH_TEST);
+
+  //large rect
+  fill(80, 100);
+  rectMode(CORNER);
+  smooth(5);
+  rect(width*3/5-50, height/7-30, 400, 200);
+  //scoreBoard!
+
+
+  noStroke();
+  //middle black rect
+  fill(5);
+  rectMode(CORNER);
+  rect(width*3/5-10, height/7, 340, 18);
+
+  //status bar
   fill(#FF811A);
   strokeWeight(2);
   stroke(0);
+  rectMode(CORNER);
   rect(width*3/5, height/7, scoreNum*3, 15);
-
+  //the word 'strength'
   textMode(MODEL);
-  fill(255);
-  text("의지", width*3/5, height/7-10);
-  hint(ENABLE_DEPTH_TEST);
+  textAlign(LEFT);
 
-  //other place not the crosswalks: minus points
-  if ((player.position.z>= 15 && player.position.z<= 45) &&( player.position.x>= 285||(player.position.x<= 265) && (player.position.x>= 45)||(player.position.x<= 265) &&(player.position.x>= 45)|| (player.position.x<= 25))) {
-    status="-1 point! You are in the wrong way. Please use the crosswalk";
-    scoreNum-=0.1;
-  }
+  //'strength'text
+  fill(255);
+  textFont (font);
+  text("의지", width*3/5, height/7-20);
+  text("상태", width*3/5, height/7+60) ;
+  hint(ENABLE_DEPTH_TEST);
+  //if (status!=null) {
+  textMode(MODEL);
+
+ 
 
   if (scoreNum <= 0) {
     stage3();
   }
 } 
 
+//what was it that i have crushed with??
+void statusValue() {
+   if (status!=null) {
+    fill(80, 100);
+    rectMode(CORNER);
+    noStroke();
+    rect(width*3/5, height/7+70, width*1/4-40, 100);
+    fill(255);
+    text(status, width*3/5, height/7+80, width*1/4-40, height/3);
+println(status);  
+}
+
+    if ((player.position.z>= 15 && player.position.z<= 45) &&( player.position.x>= 285||(player.position.x<= 265) && (player.position.x>= 45)||(player.position.x<= 265) &&(player.position.x>= 45)|| (player.position.x<= 25))) {
+      scoreNum-=0.01;
+      status="-1점 횡단보도를 이용해 주세요";
+    } 
+  
+}
+
 
 void stage3() {
 
   background(0);
   textMode(MODEL);
-  textAlign(CENTER, CENTER);
+  textAlign(CENTER);
   fill(255);
-  text("GAME OVER!! YOU ARE HIT BY A CAR, OR LOSE ALL THE SCORE.", width*1/2, height*1/3);
-  text("PRESS SPACE TO RESTART", width*1/2, height/2);
+  text("당신은 차에 부딪혔거나 모든 점수를 잃었습니다.", width*1/2, height*1/3);
+  text("시각장애인들은 일상시에 많은 어려움을 겪으며 살아갑니다.", width*1/2, height*1/3+70);
+  text("다시 시작하고 싶으시다면 마우스를 눌러주세요", width*1/2, height/2);
   hint(ENABLE_DEPTH_TEST);
-
+  status = null;
 
   if (key == ' ') {
     reset();
   }
 } 
+
 
 void reset() {
   scoreNum=100;

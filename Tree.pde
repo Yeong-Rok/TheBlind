@@ -78,7 +78,6 @@ class Tree {
         }
       }
     }
-    
     if (crashed==true) {
       background(0);
       treecrash.play();
@@ -86,13 +85,12 @@ class Tree {
       {
         treecrash.rewind();
       }
-      player.position.x -=1.5;
-      player.position.z -=1.5;
-      scoreNum-=10;
-       yellow();
-      crashed=false;
-      scoreNum-=10;
-      status= "You are hit by a tree!";
+   if (frameCount%20 == 0) {
+        yellow();      
+      scoreNum-=5;
+      }
+      status= "나무에 부딪혔습니다!";
+       crashed=false;
     }
   }
 
