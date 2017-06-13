@@ -58,6 +58,7 @@ int a = 0;
 int b = 0;
 PImage[] conv = new PImage[21];
 PImage[] still = new PImage[2]; 
+PImage finalconv;
 
 void setup() {
   fullScreen( P3D);
@@ -71,6 +72,8 @@ void setup() {
   for (int i = 0; i<still.length; i++) {
     still[i] = loadImage("still"+i+".png");
   }
+  
+  finalconv = loadImage("finalconv.png");
 
   //human
   human3 = new taillessMonkey(new PVector(50, -5, 10), 7);
@@ -262,6 +265,7 @@ void draw() {
 
   case 4:
     // success conv
+    final3();
     break;
   }
 }
@@ -393,6 +397,15 @@ void intro2() {
   camera();
   hint(DISABLE_DEPTH_TEST);
   if (b<2) image(still[b], 0, 0, width, height);
+  hint(ENABLE_DEPTH_TEST);
+  popMatrix();
+}
+
+void final3() {
+  pushMatrix();
+  camera();
+  hint(DISABLE_DEPTH_TEST);
+  image(finalconv, 0, 0, width, height);
   hint(ENABLE_DEPTH_TEST);
   popMatrix();
 }
