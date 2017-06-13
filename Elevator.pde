@@ -30,7 +30,7 @@ class Elevator {
   float doorWidth = w/3;
   float doorHeight = h * 0.8;
   float doorDepth = e_thickness;
-  float doorSpeed = 0.01;
+  float doorSpeed = 0.02;
   int time = 0;
   boolean buttonIsSeleted = true;
   color e_B_Color = color(105, 96, 91);
@@ -230,7 +230,7 @@ class Elevator {
   void moveTo(int targetFloor) {
     if (targetFloor == currentFloor) {
       time++;
-      if (time > 300) {
+      if (time > 150) {
         doorMove();
         doorBounce();
       }

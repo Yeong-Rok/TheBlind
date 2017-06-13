@@ -19,7 +19,7 @@ class Car {
     dimensions = new PVector(w, h, d);
     car = new Box(parent, w, h-6, d); 
     car.setTexture("car3.png", Box.FRONT);
-    car.setTexture("car3.png", Box.BACK);
+    car.setTexture("car4.png", Box.BACK);
     car.setTexture("car1.png", Box.LEFT);
     car.setTexture("car2.png", Box.RIGHT);
     carspeed = speed;

@@ -250,6 +250,25 @@ void draw() {
       insert.display();
       popMatrix();
     } else if (playerFloor == 3 && elevator.time > 250) {
+      elevator.update();
+      elevator.display();
+      elevator.floorCounter();
+      elevator.buttons_display();
+
+      leftDoor.update();
+      leftDoor.display();
+      rightDoor.update();
+      rightDoor.display();
+
+      leftDoor.position.x = elevator.e_Boards[7].position.x;
+      rightDoor.position.x = elevator.e_Boards[8].position.x;
+
+      for (int i = 0; i < elevator.osButtons.length; i++) {
+        if (elevator.osButtons[i].isSelected) elevator.moveTo(playerFloor);
+      }
+      for (int i = 0; i < elevator.isButtons.length; i++) {
+        if (elevator.isButtons[i].isSelected) elevator.moveTo(i+1);
+      }
       success = true;
     }
     fill(255);
