@@ -353,12 +353,12 @@ void statusValue() {
     text(status, width*3/5, height/7+80, width*1/4-40, height/3);
 println(status);  
 }
-
+    if(stage!=3){
     if ((player.position.z>= 15 && player.position.z<= 45) &&( player.position.x>= 285||(player.position.x<= 265) && (player.position.x>= 45)||(player.position.x<= 265) &&(player.position.x>= 45)|| (player.position.x<= 25))) {
       scoreNum-=0.01;
-      status="-1점 횡단보도를 이용해 주세요";
+      status="-1점! 횡단보도를 이용해 주세요";
     } 
-  
+    }
 }
 
 
