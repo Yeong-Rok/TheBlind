@@ -28,6 +28,8 @@ class imgInsert {
   float x = 50;
   float y = -0.003;
   float z = 50;
+  boolean brailleGoOn = false;
+  boolean brailleStopOn = false;
 
   imgInsert(PApplet parent) {
 
@@ -332,7 +334,7 @@ class imgInsert {
       {
         fill(255);
         textSize(100);
-        showText("STOP", width/2, height/2);
+        insert.showText("GO", width/2, height/2);
       }
     }
 
@@ -358,7 +360,7 @@ class imgInsert {
       {
         fill(255);
         textSize(100);
-        showText("STOP", width/2, height/2);
+        insert.showText("STOP", width/2, height/2);
       }
     }
   }

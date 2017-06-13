@@ -14,45 +14,38 @@ Buscar bus;
 Player player;
 Minim minim;
 Ground ground;
-Bollard[] bollards = new Bollard[12];
 Car car2;
 Footstep steps;
 imgInsert insert;
 Building building;
-Tree[] trees = new Tree[10];
-Streetlamp[] lamps = new Streetlamp[6];
-float groundBlockSize = 10;
-int scoreNum=100;
-float minusPoint= 5;
-
-PFont font;
-String status;
-String status2;
-
-boolean crashed= false;
-
+Elevator elevator;
+EDoor rightDoor;
+EDoor leftDoor;
+AudioPlayer lampcrash;
+AudioPlayer TT;
 taillessMonkey human1;
 taillessMonkey human2;
 taillessMonkey human3;
 taillessMonkey human4;
 taillessMonkey human5;
 taillessMonkey human6;
-
+Tree[] trees = new Tree[10];
+Bollard[] bollards = new Bollard[12];
+Streetlamp[] lamps = new Streetlamp[6];
 Bush[] bushes = new Bush[8];
 
-AudioPlayer lampcrash;
-AudioPlayer TT;
-
-// *********************
-boolean success = false;
-boolean brailleOn = false;
+int scoreNum=100;
 int stage = 0;
 int currentFloor = 5;
 int playerFloor = 1;
-Elevator elevator;
-EDoor rightDoor;
-EDoor leftDoor;
-// *********************
+float groundBlockSize = 10;
+float minusPoint= 5;
+PFont braille;
+PFont font;
+String status;
+String status2;
+boolean crashed= false;
+boolean success = false;
 
 //intro
 MyRoom myroom;
@@ -139,6 +132,7 @@ void setup() {
   //step sound
   steps = new Footstep();
 
+  braille = loadFont("Braille.vlw");
   font =   loadFont ("Mgonsm-32.vlw");
   textFont (font);
 
@@ -148,7 +142,6 @@ void setup() {
 }
 
 void draw() {
-  println("The stage is now" + stage);
   switch(stage) {
   case 0:
     intro();
@@ -205,16 +198,13 @@ void draw() {
     ground.update();
     ground.display();
     player.update();
-    //amblyopia.display();  //약시
     steps.walk();
-
-
 
     for (int i =0; i<trees.length; i++) {
       trees[i].update();
       trees[i].display();
     }
-    //
+
     human1.be();
     human1.update();
     human1.move();
@@ -260,14 +250,14 @@ void draw() {
     showTextInHUD(status);
 
 
-    ////////////////////////////////////////////////////////////    
+    ///////////////////////////make braille on the top/////////////////////////////////   
     for (int i = 0; i < elevator.osButtons.length; i++) {
-      elevator.osButtons[i].theSelector();
-      if (brailleOn) {
+      if (elevator.osButtons[i].brailleOn) {
         camera();
         hint(DISABLE_DEPTH_TEST);
         textMode(MODEL);
         textAlign(CENTER, CENTER);
+        textFont(braille);
         fill(255);
         textSize(130);
         text(elevator.osButtons[i].buttonTitle, width/2, height/2);
@@ -275,37 +265,66 @@ void draw() {
       }
     }
 
-    for (int i = 0; i < elevator.isButtons.length; i ++) {
-      if (brailleOn) {
-        camera();
-        hint(DISABLE_DEPTH_TEST);
-        textMode(MODEL);
-        textAlign(CENTER, CENTER);
-        fill(255);
-        textSize(130);
-        text(elevator.isButtons[i].buttonTitle, width/2, height/2);
-        hint(ENABLE_DEPTH_TEST);
+    if (elevator.x - player.position.x < elevator.w/2 && elevator.z - player.position.z < elevator.d/2) {
+      for (int i = 0; i < elevator.isButtons.length; i ++) {
+        if (elevator.isButtons[i].brailleOn) {
+          camera();
+          hint(DISABLE_DEPTH_TEST);
+          textMode(MODEL);
+          textAlign(CENTER, CENTER);
+          textFont(braille);
+          fill(255);
+          textSize(130);
+          text(elevator.isButtons[i].buttonTitle, width/2, height/2);
+          hint(ENABLE_DEPTH_TEST);
+        }
       }
-    }
 
 
-    for (int i = 0; i < elevator.openAndCloseButtons.length; i ++) {
-      if (brailleOn) {
-        camera();
-        hint(DISABLE_DEPTH_TEST);
-        textMode(MODEL);
-        textAlign(CENTER, CENTER);
-        fill(255);
-        textSize(130);
-        text(elevator.openAndCloseButtons[i].buttonTitle, width/2, height/2);
-        hint(ENABLE_DEPTH_TEST);
+      for (int i = 0; i < elevator.openAndCloseButtons.length; i ++) {
+        if (elevator.openAndCloseButtons[i].brailleOn) {
+          camera();
+          hint(DISABLE_DEPTH_TEST);
+          textMode(MODEL);
+          textAlign(CENTER, CENTER);
+          textFont(braille);
+          fill(255);
+          textSize(130);
+          text(elevator.openAndCloseButtons[i].buttonTitle, width/2, height/2);
+          hint(ENABLE_DEPTH_TEST);
+        }
       }
     }
     ////////////////////////////////////////////////////////////
 
-    if (playerFloor == 3 && elevator.time > 250) {
-      success = true;
+    if (currentFloor == 3 && playerFloor == 3) {
+      if (elevator.z - player.position.z > elevator.d/2) {
+        camera();
+        hint(DISABLE_DEPTH_TEST);
+        textMode(MODEL);
+        textAlign(CENTER, CENTER);
+        textFont(font);
+        fill(255);
+        textSize(32);
+        text("Lab실에 도착했습니다. 마우스를 click하세요!", width/2, height/2);
+        hint(ENABLE_DEPTH_TEST);
+        success = true;
+      }
+    } else if (playerFloor == 2 || playerFloor == 3 || playerFloor == 5) {
+      if (elevator.z - player.position.z > elevator.d/2) {
+        camera();
+        hint(DISABLE_DEPTH_TEST);
+        textMode(MODEL);
+        textAlign(CENTER, CENTER);
+        textFont(font);
+        fill(255);
+        textSize(32);
+        text("이곳은 Lab이 아닙니다. 3층으로 가세요..", width/2, height/2);
+        hint(ENABLE_DEPTH_TEST);
+        success = false;
+      }
     }
+
     break;
 
   case 3:
@@ -313,9 +332,18 @@ void draw() {
     break;
 
   case 4:
-    // success conv
     final3();
     break;
+  }
+
+  // whenever you want to restart...
+  if (keyPressed) {
+    if (keyCode == BACKSPACE || keyCode == DELETE) {
+      imageMode(CORNER);
+      stage = 0;
+      reset();
+      success = false;
+    }
   }
 }
 
@@ -414,7 +442,7 @@ void stage3() {
   textMode(MODEL);
   textAlign(CENTER);
   fill(255);
-  text("당신은 차에 부딪혔거나 모든 점수를 잃었습니다.", width*1/2, height*1/3);
+  text("당신은 차에 부딪혔거나 모든 의지를 잃었습니다.", width*1/2, height*1/3);
   text("시각장애인들은 일상시에 많은 어려움을 겪으며 살아갑니다.", width*1/2, height*1/3+70);
   text("다시 시작하고 싶으시다면 마우스를 눌러주세요", width*1/2, height/2);
   text("그만 플레이하시려면 백스페이스 버튼을 눌러주세요", width*1/2, height/2+70);
@@ -424,13 +452,28 @@ void stage3() {
   if (mousePressed) {
     reset();
   }
-  if (keyPressed) {
-    if (keyCode == BACKSPACE || keyCode == DELETE) {
-      imageMode(CORNER);
-      stage = 0;
-      a=0;
-      b=0;
-      reset();
+}
+
+
+void mousePressed() {
+  if (stage == 2 && success) {
+    stage = 4;
+  }
+}
+
+
+void keyPressed() {
+  if (stage==0) {
+    if (a<conv.length-1) {
+      a++;
+    } else if (a==conv.length-1) {
+      stage= 1;
+    }
+  } else if (stage==1) {
+    if (b<still.length-1) {
+      b++;
+    } else if (b==still.length-1) {
+      stage= 2;
     }
   }
 }
@@ -438,20 +481,16 @@ void stage3() {
 
 void reset() {
   scoreNum=100;
+  currentFloor = 5;
+  playerFloor = 1;
+  crashed= false;
+  success = false;
+  a = 0;
+  b = 0;
   ground.setPlayerAtStart(player);
-
   showTextInHUD(status);
 }
 
-
-
-void mousePressed() {
-  if (stage == 2 && success) {
-    stage = 4;
-  } else if (stage == 4) {
-    stage = 0;
-  }
-}
 
 void black() {
   pushMatrix();
@@ -491,23 +530,8 @@ void final3() {
   camera();
   background(0);
   hint(DISABLE_DEPTH_TEST);
+  imageMode(CORNER);
   image(finalconv, 0, 0, width, height);
   hint(ENABLE_DEPTH_TEST);
   popMatrix();
-}
-
-void keyPressed() {
-  if (stage==0) {
-    if (a<conv.length-1) {
-      a++;
-    } else if (a==conv.length-1) {
-      stage= 1;
-    }
-  } else if (stage==1) {
-    if (b<still.length-1) {
-      b++;
-    } else if (b==still.length-1) {
-      stage= 2;
-    }
-  }
 }

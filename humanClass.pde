@@ -394,9 +394,9 @@ class taillessMonkey {
     if (goFront) {
       position.x = position.x - humanspeed;
     } else {
-      position.x = 0;
+      position.x = 290;
     }
-    if (position.x==290 || position.x==0) {
+    if (int(position.x)==290 || int(position.x)==0) {
       goFront = !goFront;
     }
   }

@@ -4,8 +4,8 @@ class Button {
   color on, off;
   String buttonTitle = "B";
   boolean isSelected = false;  
+  boolean brailleOn = false;
   PFont buttonFont;
-  PFont braille;
 
   Button(float _xpos, float _ypos, float _zpos, float _w, float _h) {
     xpos = _xpos;
@@ -18,7 +18,6 @@ class Button {
     on = color(255, 0, 0);
     off = color(100, 0, 0);    
     buttonFont = loadFont("ArialMT-8.vlw");
-    braille = loadFont("Braille.vlw");
   }
 
   void display() {
@@ -50,15 +49,6 @@ class Button {
     if (checkX >= (mouseX-tolerance) && checkX <= (mouseX+tolerance)) {
       float checkY = getScreenY();
       if (checkY >= (mouseY-tolerance) && checkY <= (mouseY+tolerance)) {
-        ////// text what you want! ///// ((display))
-        //camera();
-        //hint(DISABLE_DEPTH_TEST);
-        //textMode(MODEL);
-        //textAlign(CENTER, CENTER);
-        //fill(255);
-        //textSize(130);
-        //text(buttonTitle, width/2, height/2);
-        //hint(ENABLE_DEPTH_TEST);
         brailleOn = true;
         if (mousePressed) {
           setSelected();
