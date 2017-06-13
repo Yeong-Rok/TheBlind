@@ -44,24 +44,27 @@ class Button {
     buttonTitle = title;
   }
 
-void theSelector() {
+  void theSelector() {
     int tolerance = 30;
     float checkX = getScreenX();
     if (checkX >= (mouseX-tolerance) && checkX <= (mouseX+tolerance)) {
       float checkY = getScreenY();
       if (checkY >= (mouseY-tolerance) && checkY <= (mouseY+tolerance)) {
         ////// text what you want! ///// ((display))
-        camera();
-        hint(DISABLE_DEPTH_TEST);
-        textMode(MODEL);
-        textAlign(CENTER, CENTER);
-        fill(255);
-        textSize(130);
-        text(buttonTitle, width/2, height/2);
-        hint(ENABLE_DEPTH_TEST);
+        //camera();
+        //hint(DISABLE_DEPTH_TEST);
+        //textMode(MODEL);
+        //textAlign(CENTER, CENTER);
+        //fill(255);
+        //textSize(130);
+        //text(buttonTitle, width/2, height/2);
+        //hint(ENABLE_DEPTH_TEST);
+        brailleOn = true;
         if (mousePressed) {
           setSelected();
         }
+      } else {
+        brailleOn = false;
       }
     }
   }

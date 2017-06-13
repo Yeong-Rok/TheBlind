@@ -309,7 +309,7 @@ class imgInsert {
       crosswalk2[i].draw();
     }
 
-    //braille
+
     for (int i = 0; i<brailleGo.length; i++) {
       brailleGoPos.y = -0.006;
       if (i<2) {

@@ -6,7 +6,7 @@ class Player extends QueasyCam {
 
   Player(PApplet applet) {
     super(applet);
-    speed = 0.1;
+    speed = 0.5;
     dimensions = new PVector(1, 12, 1);
     velocity = new PVector(0, 0, 0);
     gravity = new PVector(0, 0.01, 0);

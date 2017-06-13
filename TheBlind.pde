@@ -45,6 +45,7 @@ AudioPlayer TT;
 
 // *********************
 boolean success = false;
+boolean brailleOn = false;
 int stage = 0;
 int currentFloor = 5;
 int playerFloor = 1;
@@ -73,7 +74,7 @@ void setup() {
   for (int i = 0; i<still.length; i++) {
     still[i] = loadImage("still"+i+".png");
   }
-  
+
   finalconv = loadImage("finalconv.png");
   press = loadImage("press.png");
 
@@ -147,6 +148,7 @@ void setup() {
 }
 
 void draw() {
+  println("The stage is now" + stage);
   switch(stage) {
   case 0:
     intro();
@@ -156,122 +158,99 @@ void draw() {
     break;
   case 2:
     background(51);
-
-    if (playerFloor == 1) {
-      //lights();
-      pushMatrix();
-      for (int i = 0; i<bollards.length; i++) {
-        bollards[i].update();
-        bollards[i].display();
-      }
-
-      car2.update();
-      car2.display();
-      car2.move();
-
-      bus.update();
-      bus.display();
-      bus.move();
-
-      station.update();
-      station.display();
-      station2.update();
-      station2.display();
-
-      elevator.update();
-      elevator.display();
-      elevator.floorCounter();
-      elevator.buttons_display();
-
-      leftDoor.update();
-      leftDoor.display();
-      rightDoor.update();
-      rightDoor.display();
-
-      leftDoor.position.x = elevator.e_Boards[7].position.x;
-      rightDoor.position.x = elevator.e_Boards[8].position.x;
-
-      for (int i = 0; i < elevator.osButtons.length; i++) {
-        if (elevator.osButtons[i].isSelected) elevator.moveTo(playerFloor);
-      }
-      for (int i = 0; i < elevator.isButtons.length; i++) {
-        if (elevator.isButtons[i].isSelected) elevator.moveTo(i+1);
-      }
-
-
-      building.update();
-      building.display();
-
-      ground.update();
-      ground.display();
-      player.update();
-      //amblyopia.display();  //약시
-      steps.walk();
-
-
-
-      for (int i =0; i<trees.length; i++) {
-        trees[i].update();
-        trees[i].display();
-      }
-      //
-      human1.be();
-      human1.update();
-      human1.move();
-
-      human2.be();
-      human2.update();
-      human2.move();
-
-      human3.be();
-      human3.update();
-      human3.move();
-
-      human4.be();
-      human4.update();
-      human4.move();
-
-      human5.be();
-      human5.update();
-      human5.move();
-
-      human6.be();
-      human6.update();
-      human6.move();
-
-      for (int i = 0; i<bushes.length; i++) {
-        bushes[i].update();
-        bushes[i].display();
-      }
-
-      for (int i = 0; i< lamps.length; i++) {
-        lamps[i].update();
-        lamps[i].display();
-      }
-      insert.display();
-      popMatrix();
-    } else if (playerFloor == 3 && elevator.time > 250) {
-      elevator.update();
-      elevator.display();
-      elevator.floorCounter();
-      elevator.buttons_display();
-
-      leftDoor.update();
-      leftDoor.display();
-      rightDoor.update();
-      rightDoor.display();
-
-      leftDoor.position.x = elevator.e_Boards[7].position.x;
-      rightDoor.position.x = elevator.e_Boards[8].position.x;
-
-      for (int i = 0; i < elevator.osButtons.length; i++) {
-        if (elevator.osButtons[i].isSelected) elevator.moveTo(playerFloor);
-      }
-      for (int i = 0; i < elevator.isButtons.length; i++) {
-        if (elevator.isButtons[i].isSelected) elevator.moveTo(i+1);
-      }
-      success = true;
+    //lights();
+    pushMatrix();
+    for (int i = 0; i<bollards.length; i++) {
+      bollards[i].update();
+      bollards[i].display();
     }
+
+    car2.update();
+    car2.display();
+    car2.move();
+
+    bus.update();
+    bus.display();
+    bus.move();
+
+    station.update();
+    station.display();
+    station2.update();
+    station2.display();
+
+    elevator.update();
+    elevator.display();
+    elevator.floorCounter();
+    elevator.buttons_display();
+
+    leftDoor.update();
+    leftDoor.display();
+    rightDoor.update();
+    rightDoor.display();
+
+    leftDoor.position.x = elevator.e_Boards[7].position.x;
+    rightDoor.position.x = elevator.e_Boards[8].position.x;
+
+    for (int i = 0; i < elevator.osButtons.length; i++) {
+      if (elevator.osButtons[i].isSelected) elevator.moveTo(playerFloor);
+    }
+    for (int i = 0; i < elevator.isButtons.length; i++) {
+      if (elevator.isButtons[i].isSelected) elevator.moveTo(i+1);
+    }
+
+
+    building.update();
+    building.display();
+
+    ground.update();
+    ground.display();
+    player.update();
+    //amblyopia.display();  //약시
+    steps.walk();
+
+
+
+    for (int i =0; i<trees.length; i++) {
+      trees[i].update();
+      trees[i].display();
+    }
+    //
+    human1.be();
+    human1.update();
+    human1.move();
+
+    human2.be();
+    human2.update();
+    human2.move();
+
+    human3.be();
+    human3.update();
+    human3.move();
+
+    human4.be();
+    human4.update();
+    human4.move();
+
+    human5.be();
+    human5.update();
+    human5.move();
+
+    human6.be();
+    human6.update();
+    human6.move();
+
+    for (int i = 0; i<bushes.length; i++) {
+      bushes[i].update();
+      bushes[i].display();
+    }
+
+    for (int i = 0; i< lamps.length; i++) {
+      lamps[i].update();
+      lamps[i].display();
+    }
+    insert.display();
+    popMatrix();
+
     fill(255);
     textSize(32);
     textFont(font);
@@ -279,6 +258,54 @@ void draw() {
     score();
     statusValue();
     showTextInHUD(status);
+
+
+    ////////////////////////////////////////////////////////////    
+    for (int i = 0; i < elevator.osButtons.length; i++) {
+      elevator.osButtons[i].theSelector();
+      if (brailleOn) {
+        camera();
+        hint(DISABLE_DEPTH_TEST);
+        textMode(MODEL);
+        textAlign(CENTER, CENTER);
+        fill(255);
+        textSize(130);
+        text(elevator.osButtons[i].buttonTitle, width/2, height/2);
+        hint(ENABLE_DEPTH_TEST);
+      }
+    }
+
+    for (int i = 0; i < elevator.isButtons.length; i ++) {
+      if (brailleOn) {
+        camera();
+        hint(DISABLE_DEPTH_TEST);
+        textMode(MODEL);
+        textAlign(CENTER, CENTER);
+        fill(255);
+        textSize(130);
+        text(elevator.isButtons[i].buttonTitle, width/2, height/2);
+        hint(ENABLE_DEPTH_TEST);
+      }
+    }
+
+
+    for (int i = 0; i < elevator.openAndCloseButtons.length; i ++) {
+      if (brailleOn) {
+        camera();
+        hint(DISABLE_DEPTH_TEST);
+        textMode(MODEL);
+        textAlign(CENTER, CENTER);
+        fill(255);
+        textSize(130);
+        text(elevator.openAndCloseButtons[i].buttonTitle, width/2, height/2);
+        hint(ENABLE_DEPTH_TEST);
+      }
+    }
+    ////////////////////////////////////////////////////////////
+
+    if (playerFloor == 3 && elevator.time > 250) {
+      success = true;
+    }
     break;
 
   case 3:
@@ -302,8 +329,7 @@ void showTextInHUD(String str1) {
   if (str1!=null)
     text(str1, width*3/5, height/7+80, width*1/4-40, height/3);
   hint(ENABLE_DEPTH_TEST); 
-    status =null;
-  
+  status =null;
 }
 
 
@@ -355,7 +381,7 @@ void score() {
   //if (status!=null) {
   textMode(MODEL);
 
- 
+
 
   if (scoreNum <= 0) {
     stage3();
@@ -364,21 +390,21 @@ void score() {
 
 //what was it that i have crushed with??
 void statusValue() {
-   if (status!=null) {
+  if (status!=null) {
     fill(80, 100);
     rectMode(CORNER);
     noStroke();
     rect(width*3/5, height/7+70, width*1/4-40, 100);
     fill(255);
     text(status, width*3/5, height/7+80, width*1/4-40, height/3);
-println(status);  
-}
-    if(stage!=3){
+    println(status);
+  }
+  if (stage!=3) {
     if ((player.position.z>= 15 && player.position.z<= 45) &&( player.position.x>= 285||(player.position.x<= 265) && (player.position.x>= 45)||(player.position.x<= 265) &&(player.position.x>= 45)|| (player.position.x<= 25))) {
       scoreNum-=0.003;
       status="-1점! 횡단보도를 이용해 주세요";
-    } 
     }
+  }
 }
 
 
@@ -391,22 +417,22 @@ void stage3() {
   text("당신은 차에 부딪혔거나 모든 점수를 잃었습니다.", width*1/2, height*1/3);
   text("시각장애인들은 일상시에 많은 어려움을 겪으며 살아갑니다.", width*1/2, height*1/3+70);
   text("다시 시작하고 싶으시다면 마우스를 눌러주세요", width*1/2, height/2);
-  text("그만 플레이하시려면 백스페이스 버튼을 눌러주세요",width*1/2,height/2+70);
+  text("그만 플레이하시려면 백스페이스 버튼을 눌러주세요", width*1/2, height/2+70);
   hint(ENABLE_DEPTH_TEST);
   status = null;
 
   if (mousePressed) {
     reset();
   }
-if(keyPressed){
-  if(keyCode == BACKSPACE || keyCode == DELETE){
-    imageMode(CORNER);
-    stage = 0;
-    a=0;
-    b=0;
-    reset();
+  if (keyPressed) {
+    if (keyCode == BACKSPACE || keyCode == DELETE) {
+      imageMode(CORNER);
+      stage = 0;
+      a=0;
+      b=0;
+      reset();
+    }
   }
-}
 }
 
 
@@ -432,7 +458,7 @@ void black() {
   translate(width/2, height/2);
   camera();
   hint(DISABLE_DEPTH_TEST);
-  fill(0, 200);
+  fill(0, 220);
   rect(0, 0, width*2, height*2);
   hint(ENABLE_DEPTH_TEST);
   popMatrix();
