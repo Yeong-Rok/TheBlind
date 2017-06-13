@@ -392,11 +392,7 @@ void reset() {
 
 
 void mousePressed() {
-  if (stage == 0) {
-    stage = 1;
-  } else if (stage == 1) {
-    stage = 2;
-  } else if (stage == 2 && success) {
+  if (stage == 2 && success) {
     stage = 4;
   } else if (stage == 4) {
     stage = 0;
@@ -438,6 +434,7 @@ void intro2() {
 void final3() {
   pushMatrix();
   camera();
+  background(0);
   hint(DISABLE_DEPTH_TEST);
   image(finalconv, 0, 0, width, height);
   hint(ENABLE_DEPTH_TEST);
