@@ -46,7 +46,7 @@ class imgInsert {
     }
 
     doorPos = new PVector(x, y, z);    
-    door = new Box(parent, 10, 12, 30);
+    door = new Box(parent, 20, 20, 30);
     door.setTexture("door2.png");
     door.drawMode(S3D.TEXTURE);
 
@@ -137,8 +137,8 @@ class imgInsert {
   void display() {
     //3d image
 
-    //building door
-    doorPos.x = 270;
+    ////building door
+    doorPos.x = 267;
     doorPos.y = -10 ;
     doorPos.z = 90;
     door.moveTo(doorPos.x, doorPos.y, doorPos.z);
@@ -147,11 +147,12 @@ class imgInsert {
 
     //building
     buildingPos.x = 270;
-    buildingPos.y = -32 ;
+    buildingPos.y = -35 ;
     buildingPos.z = 90;
     building.moveTo(buildingPos.x, buildingPos.y, buildingPos.z);
     building.rotateTo(0, radians(30), 0);
     building.draw();
+    
     //sky
     skyPos.x = 150;
     skyPos.y = -250;
