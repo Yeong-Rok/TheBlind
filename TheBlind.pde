@@ -371,7 +371,7 @@ void stage3() {
   text("당신은 차에 부딪혔거나 모든 점수를 잃었습니다.", width*1/2, height*1/3);
   text("시각장애인들은 일상시에 많은 어려움을 겪으며 살아갑니다.", width*1/2, height*1/3+70);
   text("다시 시작하고 싶으시다면 마우스를 눌러주세요", width*1/2, height/2);
-  text("RESET은 백스페이스 버튼을 눌러주세요",width*1/2,height/2+70);
+  text("그만 플레이하시려면 백스페이스 버튼을 눌러주세요",width*1/2,height/2+70);
   hint(ENABLE_DEPTH_TEST);
   status = null;
 
