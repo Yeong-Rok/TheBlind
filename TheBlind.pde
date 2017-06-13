@@ -58,7 +58,7 @@ int a = 0;
 int b = 0;
 PImage[] conv = new PImage[21];
 PImage[] still = new PImage[2]; 
-PImage finalconv;
+PImage finalconv, press;
 
 void setup() {
   fullScreen( P3D);
@@ -74,6 +74,7 @@ void setup() {
   }
   
   finalconv = loadImage("finalconv.png");
+  press = loadImage("press.png");
 
   //human
   human3 = new taillessMonkey(new PVector(50, -5, 10), 7);
@@ -416,6 +417,7 @@ void intro() {
   hint(DISABLE_DEPTH_TEST);
   myroom.display();
   if (a<conv.length)  image(conv[a], 0, 0, width, height);
+  if (a = 0) image(press, 0, 0, width, height);
   fill(0, 50);
   rect(0, 0, width, height);
   hint(ENABLE_DEPTH_TEST);
