@@ -41,7 +41,6 @@ Bush[] bushes = new Bush[8];
 
 AudioPlayer lampcrash;
 AudioPlayer TT;
-AudioPlayer bgm;
 
 // *********************
 boolean success = false;
@@ -58,9 +57,25 @@ EDoor leftDoor;
 Room room1, room2, room3;
 // *********************
 
+//intro
+MyRoom myroom;
+int a = 0;
+int b = 0;
+PImage[] conv = new PImage[21];
+PImage[] still = new PImage[2]; 
+
 void setup() {
   fullScreen( P3D);
-  strokeWeight(2);
+
+  //intro
+  myroom = new MyRoom();
+  for (int i = 0; i<conv.length; i++) {
+    conv[i] = loadImage("conv_"+i+".png");
+  }
+
+  for (int i = 0; i<still.length; i++) {
+    still[i] = loadImage("still"+i+".png");
+  }
 
   //human
   human3 = new taillessMonkey(new PVector(50, -5, 10), 7);
@@ -86,9 +101,6 @@ void setup() {
   minim = new Minim(this);
   lampcrash = minim.loadFile("lampcrash.mp3");
   TT =  minim.loadFile("TT.wav");
-  bgm = minim.loadFile("bgm.wav");
-
-  bgm.loop();
 
   player = new Player(this);
   building = new Building(5);
@@ -136,6 +148,7 @@ void setup() {
   room3 = new Room(this, 345, 115, 10, 50);
 
 
+
   elevator = new Elevator(5);
   leftDoor = new EDoor(this, elevator.e_Boards[7].position.x, elevator.e_Boards[7].position.y, elevator.e_Boards[7].position.z);
   rightDoor = new EDoor(this, elevator.e_Boards[8].position.x, elevator.e_Boards[8].position.y, elevator.e_Boards[8].position.z);
@@ -145,9 +158,12 @@ void setup() {
 void draw() {
   switch(stage) {
   case 0:
-    background(0);
+    intro();
     break;
   case 1:
+    intro2();
+    break;
+  case 2:
     background(51);
     //lights();
     pushMatrix();
@@ -168,9 +184,9 @@ void draw() {
     station.display();
     station2.update();
     station2.display();
-///////////////////
+    ///////////////////
 
-elevator.update();
+    elevator.update();
     elevator.display();
     elevator.floorCounter();
     elevator.buttons_display();
@@ -189,119 +205,9 @@ elevator.update();
     for (int i = 0; i < elevator.isButtons.length; i++) {
       if (elevator.isButtons[i].isSelected) elevator.moveTo(i+1);
     }
-    
+
     if (currentFloor == 3 && frameCount % 360 == 0) success = true;
-///////////////////
-
-
-
-    building.update();
-    building.display();
-
-    ground.update();
-    ground.display();
-    player.update();
-    //amblyopia.display();  //약시
-    steps.walk();
-
-
-
-    for (int i =0; i<trees.length; i++) {
-      trees[i].update();
-      trees[i].display();
-    }
-    //
-    human1.be();
-    human1.update();
-    human1.move();
-
-    human2.be();
-    human2.update();
-    human2.move();
-
-    human3.be();
-    human3.update();
-    human3.move();
-
-    human4.be();
-    human4.update();
-    human4.move();
-
-    human5.be();
-    human5.update();
-    human5.move();
-
-    human6.be();
-    human6.update();
-    human6.move();
-
-    for (int i = 0; i<bushes.length; i++) {
-      bushes[i].update();
-      bushes[i].display();
-    }
-
-    for (int i = 0; i< lamps.length; i++) {
-      lamps[i].update();
-      lamps[i].display();
-    }
-    insert.display();
-    popMatrix();
-
-
-    //fill(50,210);
-    //blur(0,0,width,height);
-
-    fill(255);
-    textSize(32);
-    textFont(font);
-    score();
-    showTextInHUD(status);
-    break;
-  case 2:
-  background(51);
-    //lights();
-    pushMatrix();
-    for (int i = 0; i<bollards.length; i++) {
-      bollards[i].update();
-      bollards[i].display();
-    }
-
-    car2.update();
-    car2.display();
-    car2.move();
-
-    bus.update();
-    bus.display();
-    bus.move();
-
-    station.update();
-    station.display();
-    station2.update();
-    station2.display();
-///////////////////
-
-elevator.update();
-    elevator.display();
-    elevator.floorCounter();
-    elevator.buttons_display();
-
-    leftDoor.update();
-    leftDoor.display();
-    rightDoor.update();
-    rightDoor.display();
-
-    leftDoor.position.x = elevator.e_Boards[7].position.x;
-    rightDoor.position.x = elevator.e_Boards[8].position.x;
-
-    for (int i = 0; i < elevator.osButtons.length; i++) {
-      if (elevator.osButtons[i].isSelected) elevator.moveTo(playerFloor);
-    }
-    for (int i = 0; i < elevator.isButtons.length; i++) {
-      if (elevator.isButtons[i].isSelected) elevator.moveTo(i+1);
-    }
-    
-    if (currentFloor == 3 && frameCount % 360 == 0) success = true;
-///////////////////
+    ///////////////////
 
 
 
@@ -368,7 +274,7 @@ elevator.update();
     score();
     showTextInHUD(status);
     break;
-case 3:  
+  case 3:  
     // *********************
     ibk.update();
     ibk.display();
@@ -396,7 +302,7 @@ case 3:
     }
     println("x is " + player.position.x);
     println("z is " + player.position.z);
-    
+
     room1.display();
     room1.update();
     room2.display();
@@ -513,8 +419,8 @@ void mousePressed() {
 }
 
 void black() {
- pushMatrix();
- translate(width/2, height/2);
+  pushMatrix();
+  translate(width/2, height/2);
   camera();
   hint(DISABLE_DEPTH_TEST);
   fill(0, 200);
@@ -522,3 +428,41 @@ void black() {
   hint(ENABLE_DEPTH_TEST);
   popMatrix();
 } 
+
+void intro() {
+  pushMatrix();
+  camera();
+  hint(DISABLE_DEPTH_TEST);
+  myroom.display();
+  if (a<conv.length)  image(conv[a], 0, 0, width, height);
+  fill(0, 50);
+  rect(0, 0, width, height);
+  hint(ENABLE_DEPTH_TEST);
+  popMatrix();
+}
+
+void intro2(){
+    pushMatrix();
+  camera();
+  hint(DISABLE_DEPTH_TEST);
+  if(b<2) image(still[b], 0, 0, width, height);
+  hint(ENABLE_DEPTH_TEST);
+  popMatrix();
+}
+
+void keyPressed() {
+  if (stage==0){
+    if(a<conv.length-1) {
+    a++;
+  } else if (a==conv.length-1) {
+    stage= 1;
+  }
+  }
+  else if(stage==1){
+    if(b<still.length-1){
+    b++;
+  }else if(b==still.length-1){
+    stage= 2;
+  }
+}
+}
