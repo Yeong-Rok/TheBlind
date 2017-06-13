@@ -23,6 +23,7 @@ Tree[] trees = new Tree[10];
 Streetlamp[] lamps = new Streetlamp[6];
 float groundBlockSize = 10;
 int scoreNum=100;
+float minusPoint= 5;
 
 PFont font;
 String status;
@@ -374,7 +375,7 @@ println(status);
 }
     if(stage!=3){
     if ((player.position.z>= 15 && player.position.z<= 45) &&( player.position.x>= 285||(player.position.x<= 265) && (player.position.x>= 45)||(player.position.x<= 265) &&(player.position.x>= 45)|| (player.position.x<= 25))) {
-      scoreNum-=0.01;
+      scoreNum-=0.003;
       status="-1점! 횡단보도를 이용해 주세요";
     } 
     }

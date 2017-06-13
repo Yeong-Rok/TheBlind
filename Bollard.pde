@@ -87,7 +87,7 @@ class Bollard {
       if (frameCount%20 == 0) {
         yellow();
         
-      scoreNum-=5;
+      scoreNum-=minusPoint;
       }
       status= "볼라드에 부딪혔습니다!";
       println(scoreNum);

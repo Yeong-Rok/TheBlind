@@ -369,7 +369,7 @@ class taillessMonkey {
       background(0);
       if (frameCount%20 == 0) {
               
-      scoreNum-=5;
+      scoreNum-=minusPoint;
       }
        status= "사람에 부딪혔습니다!";
         crashed=false;
