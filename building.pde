@@ -4,8 +4,8 @@ class Building {
   Box buildBox;
 
   Building(int size) {
-    buildBlock1 = new Block(282, -10, 81, 20, 13, 30, 150, 30);
-    buildBlock2 = new Block(257, -10, 97, 20, 13, 30, 150, 30);
+    buildBlock1 = new Block(284, -5, 81, 18, 30, 30, 150, 30);
+    buildBlock2 = new Block(253, -5, 99, 15, 30, 30, 150, 30);
 
     for (int i=0; i<size*size*size/10; i++) {
       if (!buildBlock1.visited) buildBlock1.moveDown(); 

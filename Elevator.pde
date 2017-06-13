@@ -23,9 +23,9 @@ class Elevator {
   float w = 10;
   float h = 15;
   float d = 10;
-  float x = 269; /////////////////////  250
+  float x = 265;
   float y = -groundBlockSize/2 - h/2;
-  float z = 89; /////////////////////  90
+  float z = 90;
   float e_thickness = w/8;
   float doorWidth = w/3;
   float doorHeight = h * 0.8;
