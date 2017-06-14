@@ -330,12 +330,11 @@ class imgInsert {
       brailleGo[i].moveTo(brailleGoPos.x, brailleGoPos.y, brailleGoPos.z);
       brailleGo[i].draw();
 
-      if ((abs(player.position.x - brailleStopPos.x)<1) && (abs(player.position.z - brailleStopPos.z)<1))
+      if ((abs(player.position.x - brailleGoPos.x)<1) && (abs(player.position.z - brailleGoPos.z)<1))
       {
-        fill(255);
-        textSize(100);
-        insert.showText("GO", width/2, height/2);
+        brailleGoOn = true;
       }
+      else brailleGoOn = false;
     }
 
     for (int i = 0; i< brailleStop.length; i++) {
@@ -358,10 +357,9 @@ class imgInsert {
 
       if ((abs(player.position.x - brailleStopPos.x)<1) && (abs(player.position.z - brailleStopPos.z)<1))
       {
-        fill(255);
-        textSize(100);
-        insert.showText("STOP", width/2, height/2);
+        brailleStopOn = true;
       }
+      else brailleStopOn = false;
     }
   }
 }

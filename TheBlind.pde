@@ -56,7 +56,7 @@ PImage[] still = new PImage[2];
 PImage finalconv, press;
 
 void setup() {
-  fullScreen( P3D);
+  fullScreen(P3D);
 
   //intro
   myroom = new MyRoom();
@@ -251,6 +251,36 @@ void draw() {
 
 
     ///////////////////////////make braille on the top/////////////////////////////////   
+    for (int i = 0; i< insert.brailleGo.length; i++) {
+      if (insert.brailleGoOn)
+      {
+        camera();
+        hint(DISABLE_DEPTH_TEST);
+        textMode(MODEL);
+        textAlign(CENTER, CENTER);
+        textFont(braille);
+        fill(255);
+        textSize(130);
+        text("GO", width/2, height/2);
+        hint(ENABLE_DEPTH_TEST);
+      }
+    }
+
+    for (int i = 0; i< insert.brailleStop.length; i++) {
+      if (insert.brailleStopOn)
+      {
+        camera();
+        hint(DISABLE_DEPTH_TEST);
+        textMode(MODEL);
+        textAlign(CENTER, CENTER);
+        textFont(braille);
+        fill(255);
+        textSize(130);
+        text("STOP", width/2, height/2);
+        hint(ENABLE_DEPTH_TEST);
+      }
+    }
+
     for (int i = 0; i < elevator.osButtons.length; i++) {
       if (elevator.osButtons[i].brailleOn) {
         camera();
