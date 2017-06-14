@@ -328,30 +328,13 @@ void draw() {
     ////////////////////////////////////////////////////////////
 
     if (currentFloor == 3 && playerFloor == 3) {
-      if (elevator.z - player.position.z > elevator.d/2) {
-        camera();
-        hint(DISABLE_DEPTH_TEST);
-        textMode(MODEL);
-        textAlign(CENTER, CENTER);
-        textFont(font);
-        fill(255);
-        textSize(32);
-        text("Lab실에 도착했습니다. 마우스를 click하세요!", width/2, height/2);
-        hint(ENABLE_DEPTH_TEST);
-        success = true;
+      if (elevator.z - player.position.z > elevator.d/2) {       
+           success = true;
+           Message("Lab실에 도착했습니다. 마우스를 click하세요!");
       }
     } else if (playerFloor == 2 || playerFloor == 3 || playerFloor == 5) {
       if (elevator.z - player.position.z > elevator.d/2) {
-        camera();
-        hint(DISABLE_DEPTH_TEST);
-        textMode(MODEL);
-        textAlign(CENTER, CENTER);
-        textFont(font);
-        fill(255);
-        textSize(32);
-        text("이곳은 Lab이 아닙니다. 3층으로 가세요..", width/2, height/2);
-        hint(ENABLE_DEPTH_TEST);
-        success = false;
+        Message("이곳은 Lab이 아닙니다. 3층으로 가세요..");
       }
     }
 
@@ -527,7 +510,7 @@ void black() {
   translate(width/2, height/2);
   camera();
   hint(DISABLE_DEPTH_TEST);
-  fill(0, 220);
+  fill(0,100);
   rect(0, 0, width*2, height*2);
   hint(ENABLE_DEPTH_TEST);
   popMatrix();
@@ -564,4 +547,21 @@ void final3() {
   image(finalconv, 0, 0, width, height);
   hint(ENABLE_DEPTH_TEST);
   popMatrix();
+}
+
+void Message(String ms) {
+   if (success == true) {
+     if (playerFloor==3) {
+              camera();
+        hint(DISABLE_DEPTH_TEST);
+        textMode(MODEL);
+        textAlign(CENTER, CENTER);
+        textFont(font);
+        fill(255);
+        textSize(32);
+        text(ms, width/2, height/2);  
+        hint(ENABLE_DEPTH_TEST);
+        } 
+   }
+  
 }
