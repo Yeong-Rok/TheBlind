@@ -510,7 +510,7 @@ void black() {
   translate(width/2, height/2);
   camera();
   hint(DISABLE_DEPTH_TEST);
-  fill(0,235);
+  fill(0,215);
   rect(0, 0, width*2, height*2);
   hint(ENABLE_DEPTH_TEST);
   popMatrix();
